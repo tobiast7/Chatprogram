@@ -26,6 +26,7 @@ def listen_for_client(cs):
         try:
             # Ta emot meddelande från klienten
             msg = cs.recv(1024).decode('utf-8')
+            # gör så att programmet breakar från loopen ifall inget meddelande tas emot ifrån klienten
             if not msg:
                 break
             msg = msg.replace(separator, ": ") # Ersätter separatorn med (: ) så att meddelandet blir snyggt och tydligt
@@ -50,7 +51,7 @@ def listen_for_client(cs):
 
 while True:
     client_socket, client_address = s.accept()
-    print(f"[+] {client_address} connected.")
+    print(f"{client_address} connected.")
     client_sockets.add(client_socket)
 
     # Starta en ny tråd för att köra listen_for_client för varje klient
